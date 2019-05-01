@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace Gallery
+{
+    /// <summary>
+    /// Interaction logic for frmViewer.xaml
+    /// </summary>
+    public partial class frmViewer : Window
+    {
+
+        Photo _photo;
+
+        public frmViewer()
+        {
+            InitializeComponent();
+        }
+
+        public Photo SelectedPhoto
+        {
+            get { return _photo; }
+            set { _photo = value; }
+        }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            ViewedPhoto.Source = _photo.Image;
+            ViewedCaption.Content = _photo.Source;
+        }
+    }
+}
