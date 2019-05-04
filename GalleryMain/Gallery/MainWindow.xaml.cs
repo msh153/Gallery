@@ -9,13 +9,15 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Drawing.Imaging;
+using System.Windows.Media.Imaging;
+using MessageBox = System.Windows.MessageBox;
+
 namespace Gallery
 {
     /// <summary>
@@ -25,73 +27,87 @@ namespace Gallery
     public partial class MainWindow : Window
     {
 
-        IList<System.Windows.Controls.Image> images = new List<System.Windows.Controls.Image>();
+        IList<Image> images = new List<Image>();
+        private List<string> filter = new List<string>() { @"bmp", @"jpg", @"gif", @"png" };
 
         public MainWindow()
         {
             InitializeComponent();
         }
-        private List<string> filter = new List<string>() { @"bmp", @"jpg", @"gif", @"png" };
         private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            FileInfo[] files;
+            try
+            {
+                DirectoryInfo info = new DirectoryInfo(textBox.Text);
+                files = info.GetFiles().OrderByDescending(p => p.LastWriteTime).ToArray();
+            }
+            catch
+            {
+                MessageBox.Show("Folder path is not correct");
+                throw new FileNotFoundException();
+            }
+            foreach (var file in files)
+            {
+                if (filter.Exists(n => n == file.Name.Split('.').Last().ToLower()))
+                {
+                    try
+                    {
+                        var bi = new BitmapImage(new Uri(file.FullName))
+                        {
+                            CacheOption = BitmapCacheOption.OnLoad
+                        };
+
+                        var img = new System.Windows.Controls.Image
+                        {
+                            Source = bi,
+                            Width = 200,
+                            Height = 100
+                        };
+                        images.Add(img);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Windows.MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+            listbox.ItemsSource = images;
+        }
+
+        private void OnPhotoClick(object sender, MouseButtonEventArgs e)
+        {
+
+            frmViewer pvWindow = new frmViewer
+            {
+                SelectedPhoto = (Image)listbox.SelectedItem,
+                Images = images,
+                needAnimation = false,
+                 interval = 2
+            };
+            pvWindow.Show();
+        }
+
+        private void Open_Folder_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 textBox.Text = dialog.SelectedPath;
-                foreach (string file in Directory.GetFiles(dialog.SelectedPath))
-                {
-                    if (filter.Exists(n => n == file.Split(new char[] { '.' }).Last().ToLower()))
-                    {
-                        try
-                        {
-                            var bi = new BitmapImage(new Uri(file));
-
-                            var img = new System.Windows.Controls.Image();
-                            bi.DecodePixelWidth = 200;
-                            bi.CacheOption = BitmapCacheOption.OnLoad;
-                            img.Source = bi; img.Height = 100;
-                            images.Add(img);
-                        }
-                        catch (Exception ex)
-                        {
-                            System.Windows.MessageBox.Show(ex.Message);
-                        }
-                    }
-                }
-                listbox.ItemsSource = images;
             }
-
         }
 
-        private void OnPhotoClick(object sender, MouseButtonEventArgs e)
+        private void StartSlideShowButton_Click(object sender, RoutedEventArgs e)
         {
-
-            frmViewer pvWindow = new frmViewer();
-            pvWindow.SelectedPhoto = (Photo)listbox.SelectedItem;
+            frmViewer pvWindow = new frmViewer
+            {
+                SelectedPhoto = (Image)listbox.SelectedItem,
+                Images = images,
+                needAnimation = true,
+                interval = Convert.ToInt32(textBox_interval.Text)
+        };
             pvWindow.Show();
         }
-    }
-    public class Photo
-    {
-        public Photo(string path)
-        {
-            _path = path;
-            _source = new Uri(path);
-            _image = BitmapFrame.Create(_source);
-
-        }
-        public override string ToString()
-        {
-            return _source.ToString();
-        }
-
-        private string _path;
-
-        private Uri _source;
-        public string Source { get { return _path; } }
-
-        private BitmapFrame _image;
-        public BitmapFrame Image { get { return _image; } set { _image = value; } }
     }
 }

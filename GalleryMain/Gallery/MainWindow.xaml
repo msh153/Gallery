@@ -6,28 +6,13 @@
         xmlns:local="clr-namespace:Gallery"
         mc:Ignorable="d"
         Title="MainWindow" Height="478.723" Width="664.362">
-    <!--<Window.Resources>
-        <Style TargetType="{x:Type ListBox}" x:Key="PhotoListBoxStyle">
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ListBox}" >
-                        <WrapPanel Margin="5" IsItemsHost="True" Orientation="Horizontal" 
-                       ItemHeight="{Binding ElementName=ZoomSlider, Path='Value'}" 
-                       ItemWidth="{Binding ElementName=ZoomSlider, Path='Value'}" 
-                       VerticalAlignment="Top" HorizontalAlignment="Stretch" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>-->
     <Grid Margin="0,0,2,14">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8*"/>
             <ColumnDefinition Width="101*"/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="LoadButton" Content="Load" HorizontalAlignment="Left" Margin="487,40,0,0" VerticalAlignment="Top" Width="75" Click="LoadButton_Click" Grid.Column="1"/>
+        <Button x:Name="LoadButton" Content="Load" HorizontalAlignment="Left" Margin="521,40,0,0" VerticalAlignment="Top" Width="75" Click="LoadButton_Click" Grid.Column="1"/>
         <GroupBox Grid.Column="0" Margin="0,85,44,0" Grid.ColumnSpan="2">
 
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,10,-2,0">
@@ -42,6 +27,10 @@
                 </ListBox>
             </ScrollViewer>
         </GroupBox>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="19,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="403" Grid.Column="1"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="460" Text="C:\Users\misha\Source\Repos\coursework2\GalleryMain\Gallery\bin\Debug\images" Grid.ColumnSpan="2"/>
+        <Button x:Name="LoadButton_Copy" Content="Open Folder" HorizontalAlignment="Left" Margin="436,40,0,0" VerticalAlignment="Top" Width="75"  Grid.Column="1" Click="Open_Folder_Click"/>
+        <Button x:Name="StartSlideShowButton" Content="Start Slide Show" HorizontalAlignment="Left" Margin="273,71,0,0" VerticalAlignment="Top" Width="100"  Grid.Column="1" Click="StartSlideShowButton_Click"/>
+        <TextBox x:Name="textBox_interval" Grid.Column="1" HorizontalAlignment="Left" Height="27" Margin="541,68,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="30"/>
+        <Label x:Name="label" Content="Image change interval" Grid.Column="1" HorizontalAlignment="Left" Margin="398,68,0,0" VerticalAlignment="Top" Height="30"/>
     </Grid>
 </Window>

@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing.Imaging;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Gallery
 {
@@ -20,23 +13,50 @@ namespace Gallery
     public partial class frmViewer : Window
     {
 
-        Photo _photo;
 
         public frmViewer()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
         }
 
-        public Photo SelectedPhoto
+        public IList<Image> Images = new List<Image>();
+        public Image SelectedPhoto;
+        public bool needAnimation;
+        public int interval;
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            get { return _photo; }
-            set { _photo = value; }
+            if (!needAnimation)
+            {
+                return;
+            }
+            buttonNext.Visibility = Visibility.Hidden;
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Tick += (s, ev) => buttonNext.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            timer.Interval = new TimeSpan(0, 0, interval);
+            timer.Start();
         }
 
+        public void Add(IList<Image> images)
+        {
+            Images = images;
+        }
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            ViewedPhoto.Source = _photo.Image;
-            ViewedCaption.Content = _photo.Source;
+            ViewedPhotoForSlideShow.Source = SelectedPhoto.Source;
+        }
+
+        private void Button_Next_Click(object sender, RoutedEventArgs e)
+        {
+            var counterPhoto = Images.IndexOf(SelectedPhoto);
+            counterPhoto++;
+            if (counterPhoto == Images.Count)
+            {
+                counterPhoto = 0;
+            }
+            ViewedPhotoForSlideShow.Source = Images[counterPhoto].Source;
+            SelectedPhoto = Images[counterPhoto];
+            
         }
     }
 }
