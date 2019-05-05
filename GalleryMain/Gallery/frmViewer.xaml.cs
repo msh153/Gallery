@@ -24,15 +24,20 @@ namespace Gallery
         public Image SelectedPhoto;
         public bool needAnimation;
         public int interval;
+        public bool Check;
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             if (!needAnimation)
             {
-                return;
+                return; 
             }
             buttonNext.Visibility = Visibility.Hidden;
+            buttonPrevious.Visibility = Visibility.Hidden;
             DispatcherTimer timer = new DispatcherTimer();
+            if(!Check)
             timer.Tick += (s, ev) => buttonNext.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            else
+                timer.Tick += (ev, s) => buttonPrevious.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             timer.Interval = new TimeSpan(0, 0, interval);
             timer.Start();
         }
@@ -57,6 +62,19 @@ namespace Gallery
             ViewedPhotoForSlideShow.Source = Images[counterPhoto].Source;
             SelectedPhoto = Images[counterPhoto];
             
+        }
+
+        private void Button_Prev_Click(object sender, RoutedEventArgs e)
+        {
+                var counterPhoto = Images.IndexOf(SelectedPhoto);
+                if (counterPhoto == 0)
+                {
+                    counterPhoto = Images.Count;
+                }
+            counterPhoto--;
+
+            ViewedPhotoForSlideShow.Source = Images[counterPhoto].Source;
+                SelectedPhoto = Images[counterPhoto];
         }
     }
 }
