@@ -46,8 +46,6 @@ namespace Gallery
             DirectoryInfo info = new DirectoryInfo(textBox.Text);
             try
             {
-
-                      
                 files = info.GetFiles().OrderBy(p => p.Name).ToArray();
                 if(Check==true)
                 switch ((ComboBoxShow.SelectedIndex))
@@ -136,6 +134,7 @@ namespace Gallery
 
         private void Open_Folder_Click(object sender, RoutedEventArgs e)
         {
+            label_date.Visibility = Visibility.Hidden;
             pbInterminate.Visibility = Visibility.Visible;
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
@@ -144,6 +143,7 @@ namespace Gallery
                 textBox.Text = dialog.SelectedPath;
             }
             pbInterminate.Visibility = Visibility.Hidden;
+            label_date.Visibility = Visibility.Visible;
         }
 
         private void StartSlideShowButton_Click(object sender, RoutedEventArgs e)
@@ -162,7 +162,8 @@ namespace Gallery
 
         private void Button_create_Click(object sender, RoutedEventArgs e)
         {
-
+            editor p = new editor();
+            p.Show();
         }
 
         private void CheckBoxDescending_Unchecked(object sender, RoutedEventArgs e)

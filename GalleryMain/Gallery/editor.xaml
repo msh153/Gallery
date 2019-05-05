@@ -6,8 +6,39 @@
         xmlns:local="clr-namespace:Gallery"
         mc:Ignorable="d"
         Title="editor" Height="450" Width="800">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF191B42" Offset="0"/>
+            <GradientStop Color="#FFA0A5FF" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
-        <InkCanvas HorizontalAlignment="Left" Height="100" Margin="381,180,0,0" VerticalAlignment="Top" Width="100"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="83*"/>
+        </Grid.ColumnDefinitions>
 
+        <InkCanvas x:Name="inkCanvas1" HorizontalAlignment="Left"
+                   Height="307" Margin="68.532,10,0,0" VerticalAlignment="Top" Width="604" Grid.Column="1">
+            <!--<InkCanvas.Background>
+            <ImageBrush --><!--ImageSource--><!--></ImageBrush>
+        </InkCanvas.Background>-->
+            </InkCanvas>
+                <Button x:Name="buttonClear" Content="Clear" HorizontalAlignment="Left" Margin="636.532,389,0,0" VerticalAlignment="Top" Width="75" Click="Clear_Click" FontFamily="Segoe UI Black" Grid.Column="1"/>
+        <Button x:Name="buttonClose" Content="Close" HorizontalAlignment="Left" Margin="36,389,0,0" VerticalAlignment="Top" Width="75" Click="ButtonClose_Click" FontFamily="Segoe UI Black" Grid.ColumnSpan="2"/>
+        <Button x:Name="buttonSave" Content="Save" HorizontalAlignment="Left" Margin="316.532,389,0,0" VerticalAlignment="Top" Width="75" Click="ButtonSave_Click" FontFamily="Segoe UI Black" Grid.Column="1"/>
+        <Slider x:Name="sld_RedColor" Background="Red" Minimum="0" Maximum="255" HorizontalAlignment="Left" Margin="25,322,0,0" VerticalAlignment="Top" Width="269" ValueChanged="sld_Color_ValueChanged" Grid.ColumnSpan="2"/>
+        <Slider x:Name="sld_GreenColor" Background="Green" Minimum="0" Maximum="255" HorizontalAlignment="Left" Margin="25,342,0,0" VerticalAlignment="Top" Width="269" ValueChanged="sld_Color_ValueChanged" Grid.ColumnSpan="2"/>
+        <Slider x:Name="sld_BlueColor" Background="Blue" Minimum="0" Maximum="255" HorizontalAlignment="Left" Margin="25,362,0,0" VerticalAlignment="Top" Width="269" ValueChanged="sld_Color_ValueChanged" Grid.ColumnSpan="2"/>
+        <Label x:Name="lbl1" Content="Changed color" HorizontalAlignment="Left" Margin="331.532,334,0,0" VerticalAlignment="Top" FontFamily="Stencil" Height="26" Width="123" FontSize="14" Grid.Column="1" BorderBrush="White" OpacityMask="White">
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FFE45E5E" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+        <CheckBox x:Name="cb_Select" Content="To select" HorizontalAlignment="Left" Margin="529.532,345,0,0" VerticalAlignment="Top" Width="75" FontFamily="Segoe UI Black" Grid.Column="1" Checked="cb_Select_checked" Unchecked="Cb_Select_Unchecked"/>
+    
     </Grid>
 </Window>
