@@ -29,15 +29,13 @@ namespace Gallery
         {
             if (!needAnimation)
             {
-                return; 
+                return;
             }
             buttonNext.Visibility = Visibility.Hidden;
             buttonPrevious.Visibility = Visibility.Hidden;
             DispatcherTimer timer = new DispatcherTimer();
-            if(!Check)
             timer.Tick += (s, ev) => buttonNext.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            else
-                timer.Tick += (ev, s) => buttonPrevious.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            timer.Tick += (s, ev) => buttonPrevious.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             timer.Interval = new TimeSpan(0, 0, interval);
             timer.Start();
         }
