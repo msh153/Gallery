@@ -64,7 +64,7 @@ namespace Gallery
                 gifEnc.Save(fs);
                 fs.Close();
                 this.inkCanvas1.EditingMode = InkCanvasEditingMode.Ink;
-                MessageBox.Show("File has saved, " + imgPath); 
+                MessageBox.Show("File has saved, " + imgPath);
            
         }
         public class ColorRGB
@@ -122,7 +122,7 @@ namespace Gallery
             {
                  Image imgPhoto = new Image
             {
-                Width = 500,
+                Width = 400,
                 Source = new BitmapImage(new Uri(op.FileName)),
 
             };
