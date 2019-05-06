@@ -8,10 +8,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Gallery
 {
@@ -34,6 +36,16 @@ namespace Gallery
         {
             this.inkCanvas1.Strokes.Clear();
         }
+    //    private void AddImage
+    //    {
+    //        Image image = new Image
+    //        {
+    //            Width = 100,
+    //            Source = new BitmapImage(new Uri(@"/InkCanvasTest;component/Phone.jpg", UriKind.Relative))
+
+    //        };
+    //inkCanvas.Children.Add(image);
+    //    }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
@@ -96,6 +108,27 @@ namespace Gallery
         private void Cb_Select_Unchecked(object sender, RoutedEventArgs e)
         {
             this.inkCanvas1.EditingMode = InkCanvasEditingMode.Ink;
+        }
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Select a picture";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png";
+            System.Windows.Forms.DialogResult result = op.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                 Image imgPhoto = new Image
+            {
+                Width = 500,
+                Source = new BitmapImage(new Uri(op.FileName)),
+
+            };
+            inkCanvas1.Children.Add(imgPhoto);
+            }
+           
         }
     }
    
