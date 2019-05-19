@@ -51,21 +51,31 @@ namespace Gallery
         {
             this.Close();
         }
+        static string imgPat = @"D:\file.jpeg";
+        public static string Add()
+        {
+            string a = imgPat;
+            return a;
+        }
+
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-                this.inkCanvas1.EditingMode = InkCanvasEditingMode.None;
-                string imgPath = @"D:\file.jpeg";
-                MemoryStream ms = new MemoryStream();  
-                FileStream fs = new FileStream(imgPath, FileMode.Create); 
-                RenderTargetBitmap rtb = new RenderTargetBitmap((int)inkCanvas1.Width, (int)inkCanvas1.Height, 96, 96, PixelFormats.Default);
-                rtb.Render(inkCanvas1);
-                GifBitmapEncoder gifEnc = new GifBitmapEncoder();
-                gifEnc.Frames.Add(BitmapFrame.Create(rtb));
-                gifEnc.Save(fs);
-                fs.Close();
-                this.inkCanvas1.EditingMode = InkCanvasEditingMode.Ink;
-                MessageBox.Show("File has saved, " + imgPath);
-           
+            this.inkCanvas1.EditingMode = InkCanvasEditingMode.None;
+            string imgPath = @"D:\file.jpeg";
+            MemoryStream ms = new MemoryStream();
+            FileStream fs = new FileStream(imgPath, FileMode.Create);
+            RenderTargetBitmap rtb = new RenderTargetBitmap((int)inkCanvas1.Width, (int)inkCanvas1.Height, 96, 96, PixelFormats.Default);
+            rtb.Render(inkCanvas1);
+            GifBitmapEncoder gifEnc = new GifBitmapEncoder();
+            gifEnc.Frames.Add(BitmapFrame.Create(rtb));
+            gifEnc.Save(fs);
+            fs.Close();
+            this.inkCanvas1.EditingMode = InkCanvasEditingMode.Ink;
+            MessageBox.Show("File has saved, " + imgPath);
+
+
+
+
         }
         public class ColorRGB
         {
@@ -120,15 +130,15 @@ namespace Gallery
             System.Windows.Forms.DialogResult result = op.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                 Image imgPhoto = new Image
-            {
-                Width = 400,
+                Image imgPhoto = new Image
+                {
+                    Width = 400,
+                    Height = 400,
                 Source = new BitmapImage(new Uri(op.FileName)),
 
             };
             inkCanvas1.Children.Add(imgPhoto);
             }
-           
         }
     }
    

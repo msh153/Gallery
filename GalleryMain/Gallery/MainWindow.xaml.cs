@@ -38,6 +38,23 @@ namespace Gallery
             InitializeComponent();
         }
         bool Check;
+        public void Add()
+        {
+            string path = editor.Add();
+                    var bi = new BitmapImage(new Uri(path))
+                    {
+                        CacheOption = BitmapCacheOption.OnLoad
+                    };
+
+                    var img = new System.Windows.Controls.Image
+                    {
+                        Source = bi,
+                        Width = 150,
+                        Height = 100
+                    };
+                    images.Add(img);
+        listbox.ItemsSource = images;
+        }
         private void LoadButton_ClickAsync(object sender, RoutedEventArgs e)
         {
             images.Clear();
@@ -88,9 +105,9 @@ namespace Gallery
 
             foreach (var file in files)
             {
-                pbStatus.Visibility = Visibility.Visible;
-                pbStatus.Maximum = files.Count();
-                ++pbStatus.Value; 
+                //pbStatus.Visibility = Visibility.Visible;
+                //pbStatus.Maximum = files.Count();
+                //++pbStatus.Value; 
                 if (filter.Exists(n => n == file.Name.Split('.').Last().ToLower()))
                 {
                     try
@@ -116,8 +133,7 @@ namespace Gallery
                 }
             }
             listbox.ItemsSource = images;
-            pbStatus.Visibility = Visibility.Hidden;
-            
+            pbInterminate.Visibility = Visibility.Hidden;
         }
         private void OnPhotoClick(object sender, MouseButtonEventArgs e)
         {
@@ -164,6 +180,7 @@ namespace Gallery
         {
             editor p = new editor();
             p.Show();
+            button_update.Visibility = Visibility.Visible;
         }
 
         private void CheckBoxDescending_Unchecked(object sender, RoutedEventArgs e)
@@ -251,6 +268,11 @@ namespace Gallery
             }
             listbox.ItemsSource = images;
             images.Clear();
+        }
+
+        private void Button_update(object sender, RoutedEventArgs e)
+        {
+            Add();
         }
     }
 }

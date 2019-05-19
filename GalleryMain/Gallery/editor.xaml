@@ -8,8 +8,8 @@
         Title="editor" Height="450" Width="800">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FF191B42" Offset="0"/>
-            <GradientStop Color="#FFA0A5FF" Offset="1"/>
+            <GradientStop Color="Azure" Offset="0"/>
+            <GradientStop Color="Aqua" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
     <Grid>
@@ -18,8 +18,8 @@
             <ColumnDefinition Width="83*"/>
         </Grid.ColumnDefinitions>
 
-        <InkCanvas x:Name="inkCanvas1" Margin="69,10,74,102" Grid.Column="1">
-            <Image Name="imgPhoto" Margin="64,0,-576,-307"/>
+        <InkCanvas x:Name="inkCanvas1" Margin="69,10,74,102" Grid.Column="1" RenderTransformOrigin="202,200" Width="610" Height="500">
+            <Image Name="imgPhoto" Margin="129,10,-500,-297" MinWidth="100" MinHeight="100" Height="500"/>
         </InkCanvas>
         <Button x:Name="buttonClear" Content="Clear" Margin="0,0,35,10" Click="Clear_Click" FontFamily="Segoe UI Black" Grid.Column="1" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom"/>
         <Button x:Name="buttonClose" Content="Close" HorizontalAlignment="Left" Margin="36,0,0,10" VerticalAlignment="Bottom" Width="75" Click="ButtonClose_Click" FontFamily="Segoe UI Black" Grid.ColumnSpan="2"/>

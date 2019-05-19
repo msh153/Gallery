@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:Gallery"
         mc:Ignorable="d"
         Title="frmViewer" Height="444" Width="794" Loaded="WindowLoaded">
-
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Azure" Offset="0"/>
+            <GradientStop Color="Aqua" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
         <Image x:Name="ViewedPhotoForSlideShow" Height="Auto" Margin="41,10,38,62"/>
         <Button x:Name="buttonNext" Content="Next" HorizontalAlignment="Right" Margin="0,0,75,10" VerticalAlignment="Bottom" Width="75" Click="Button_Next_Click">
