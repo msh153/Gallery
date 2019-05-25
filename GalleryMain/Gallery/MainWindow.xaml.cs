@@ -20,6 +20,7 @@ using MessageBox = System.Windows.MessageBox;
 using System.ComponentModel;
 using System.Threading;
 using ProgressBar = System.Windows.Forms.ProgressBar;
+using System.ComponentModel;
 
 namespace Gallery
 {
@@ -30,12 +31,15 @@ namespace Gallery
     public partial class MainWindow : Window
     {
 
+        public BackgroundWorker backgroundWorker;
         IList<Image> images = new List<Image>();
         private List<string> filter = new List<string>() { @"bmp", @"jpg", @"gif", @"png" };
         Dictionary<Image, DateTime> photos = new Dictionary<Image, DateTime>();
         public MainWindow()
         {
             InitializeComponent();
+            backgroundWorker = ((BackgroundWorker)this.FindResource("backgroundWorker"));
+
         }
         bool Check;
         public void Add()
@@ -55,8 +59,10 @@ namespace Gallery
                     images.Add(img);
         listbox.ItemsSource = images;
         }
-        private void LoadButton_ClickAsync(object sender, RoutedEventArgs e)
+        int Count;
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            pbStatus.Visibility = Visibility.Visible;
             images.Clear();
             listbox.ItemsSource = null;
             FileInfo[] files;
@@ -64,49 +70,53 @@ namespace Gallery
             try
             {
                 files = info.GetFiles().OrderBy(p => p.Name).ToArray();
-                if(Check==true)
-                switch ((ComboBoxShow.SelectedIndex))
-                { 
-                case 0:
-                        files = info.GetFiles().OrderBy(p => p.Name).ToArray();
-                        break;
-                    case 1:
-                        files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
-                        break;
-                    case 2:
-                        files = info.GetFiles().OrderBy(p => p.LastWriteTime).ToArray();
-                        break;
-                    case 3:
-                        files = info.GetFiles().OrderBy(p => p.Length).ToArray();
-                        break;
-                }
+                if (Check == true)
+                    switch ((ComboBoxShow.SelectedIndex))
+                    {
+                        case 0:
+                            files = info.GetFiles().OrderBy(p => p.Name).ToArray();
+                            break;
+                        case 1:
+                            files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+                            break;
+                        case 2:
+                            files = info.GetFiles().OrderBy(p => p.LastWriteTime).ToArray();
+                            break;
+                        case 3:
+                            files = info.GetFiles().OrderBy(p => p.Length).ToArray();
+                            break;
+                    }
                 else
                     switch ((ComboBoxShow.SelectedIndex))
-                    { 
-                case 0:
-                        files = info.GetFiles().OrderByDescending(p => p.Name).ToArray();
-                    break;
-                    case 1:
-                        files = info.GetFiles().OrderByDescending(p => p.CreationTime).ToArray();
-                    break;
-                    case 2:
-                        files = info.GetFiles().OrderByDescending(p => p.LastWriteTime).ToArray();
-                    break;
-                    case 3:
-                        files = info.GetFiles().OrderByDescending(p => p.Length).ToArray();
-                    break;
-                }
+                    {
+                        case 0:
+                            files = info.GetFiles().OrderByDescending(p => p.Name).ToArray();
+                            break;
+                        case 1:
+                            files = info.GetFiles().OrderByDescending(p => p.CreationTime).ToArray();
+                            break;
+                        case 2:
+                            files = info.GetFiles().OrderByDescending(p => p.LastWriteTime).ToArray();
+                            break;
+                        case 3:
+                            files = info.GetFiles().OrderByDescending(p => p.Length).ToArray();
+                            break;
+                    }
             }
             catch
             {
                 MessageBox.Show("Folder path is not correct");
                 throw new FileNotFoundException();
             }
-
+            pbStatus.Maximum = files.Count();
+            Count = files.Count();
+            int percentage;
             foreach (var file in files)
             {
-                //pbStatus.Visibility = Visibility.Visible;
-                //pbStatus.Maximum = files.Count();
+                percentage = (files.Count()-files.Count() + 1) * 100 / files.Count();
+                backgroundWorker.ReportProgress(percentage);
+                pbStatus.Visibility = Visibility.Visible;
+                pbStatus.Maximum = files.Count();
                 //++pbStatus.Value; 
                 if (filter.Exists(n => n == file.Name.Split('.').Last().ToLower()))
                 {
@@ -124,7 +134,7 @@ namespace Gallery
                             Height = 100
                         };
                         images.Add(img);
-                        photos.Add(img,file.CreationTimeUtc);
+                        photos.Add(img, file.CreationTimeUtc);
                     }
                     catch (Exception ex)
                     {
@@ -134,6 +144,21 @@ namespace Gallery
             }
             listbox.ItemsSource = images;
             pbInterminate.Visibility = Visibility.Hidden;
+        }
+
+        void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            pbStatus.Value = e.ProgressPercentage;
+        }
+
+        void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("Done");
+        }
+        private void LoadButton_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            backgroundWorker.RunWorkerAsync();
+           
         }
         private void OnPhotoClick(object sender, MouseButtonEventArgs e)
         {

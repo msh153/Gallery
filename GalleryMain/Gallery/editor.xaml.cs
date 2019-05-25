@@ -64,7 +64,7 @@ namespace Gallery
             string imgPath = @"D:\file.jpeg";
             MemoryStream ms = new MemoryStream();
             FileStream fs = new FileStream(imgPath, FileMode.Create);
-            RenderTargetBitmap rtb = new RenderTargetBitmap((int)inkCanvas1.Width, (int)inkCanvas1.Height, 96, 96, PixelFormats.Default);
+            RenderTargetBitmap rtb = new RenderTargetBitmap((int)inkCanvas1.Width, (int)inkCanvas1.Height, 200, 200, PixelFormats.Default);
             rtb.Render(inkCanvas1);
             GifBitmapEncoder gifEnc = new GifBitmapEncoder();
             gifEnc.Frames.Add(BitmapFrame.Create(rtb));

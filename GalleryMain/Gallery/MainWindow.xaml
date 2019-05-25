@@ -4,10 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                 xmlns:wpfx="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
-        
+         xmlns:cm="clr-namespace:System.ComponentModel;assembly=System"
         xmlns:local="clr-namespace:Gallery"
         mc:Ignorable="d"
         Title="MainWindow" Height="502.723" Width="685.362">
+    <Window.Resources>
+        <cm:BackgroundWorker x:Key="backgroundWorker" 
+      WorkerReportsProgress="True" WorkerSupportsCancellation="True"
+      DoWork="backgroundWorker_DoWork" ProgressChanged="backgroundWorker_ProgressChanged" 
+      RunWorkerCompleted="backgroundWorker_RunWorkerCompleted"/>
+    </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Azure" Offset="0"/>
@@ -56,6 +62,7 @@
         <Button x:Name="buttonSearch" Content="Search" HorizontalAlignment="Left" Margin="271,68,0,0" VerticalAlignment="Top" Width="75" Height="21" Click="ButtonSearch_Click"/>
         <TextBox x:Name="textBoxSearch" Foreground="Silver" Text ="Enter value" HorizontalAlignment="Left" Height="20" Margin="96,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" GotFocus="TextBoxSearch_MouseUp"/>
         <Button x:Name="button_update" Visibility="Hidden" Content="Update" HorizontalAlignment="Left" Margin="-24,238,0,0" VerticalAlignment="Top" Width="54" Click="Button_update" Height="37"/>
+        <Label x:Name="resultLabel" Content="Label" HorizontalAlignment="Left" Margin="603,395,0,0" VerticalAlignment="Top"/>
         <!--<Button x:Name="button_update" Content="Update" HorizontalAlignment="Left" Margin="-24,228,0,0" VerticalAlignment="Top" Width="54" Click="Button_update" Height="37"/>-->
     </Grid>
 
