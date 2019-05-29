@@ -9,10 +9,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="502.723" Width="685.362">
     <Window.Resources>
-        <cm:BackgroundWorker x:Key="backgroundWorker" 
-      WorkerReportsProgress="True" WorkerSupportsCancellation="True"
-      DoWork="backgroundWorker_DoWork" ProgressChanged="backgroundWorker_ProgressChanged" 
-      RunWorkerCompleted="backgroundWorker_RunWorkerCompleted"/>
+
     </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -20,7 +17,7 @@
             <GradientStop Color="Aqua" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
-    <Grid Margin="27,0,2,8">
+    <Grid Margin="28,0,2,8">
         <ComboBox Name="ComboBoxShow" Height="23" VerticalAlignment="Top" Margin="107,9,408,0" SelectedIndex="0">
             <TextBlock Name="Name">Name</TextBlock>
             <TextBlock Name="Create">Create</TextBlock>
@@ -33,13 +30,12 @@
             <TextBlock Name="year">e</TextBlock>
         </ComboBox>
         <Button x:Name="LoadButton" Content="Load" HorizontalAlignment="Left" Margin="541,37,0,0" VerticalAlignment="Top" Width="75" Click="LoadButton_ClickAsync"/>
-        <GroupBox Grid.Column="0" Margin="20,103,50,56" Grid.ColumnSpan="2">
+        <GroupBox Grid.Column="0" Margin="41,101,53,56">
 
-
-            <ListBox  x:Name="listbox" 
+            <ListBox  x:Name="listbox"
           SelectionMode="Extended" 
           ItemsSource="{Binding images}"     IsSynchronizedWithCurrentItem="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          IsTextSearchCaseSensitive="True" MouseDoubleClick="OnPhotoClick" Margin="10,10,8,4" GotFocus="Listbox_GotFocus">
+                          IsTextSearchCaseSensitive="True" MouseDoubleClick="OnPhotoClick" Margin="10,10,8,4" AllowDrop="True" Drop="Listbox_Drop" SelectionChanged="Listbox_SelectionChanged">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel IsItemsHost="True" />
@@ -47,6 +43,7 @@
                 </ListBox.ItemsPanel>
             </ListBox>
         </GroupBox>
+            
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="-24,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="460" Text="C:\Users\misha\Source\Repos\coursework2\GalleryMain\Gallery\bin\Debug\images"/>
         <Button x:Name="LoadButton_Copy" Content="Open Folder" HorizontalAlignment="Left" Margin="450,36,0,0" VerticalAlignment="Top" Width="75" Click="Open_Folder_Click"/>
         <Button x:Name="StartSlideShowButton" Content="Start Slide Show" HorizontalAlignment="Left" Margin="367,69,0,0" VerticalAlignment="Top" Width="100" Click="StartSlideShowButton_Click"/>
@@ -55,15 +52,16 @@
         <ProgressBar Name="pbStatus" Visibility="Hidden" Minimum="0" Value="0" Margin="0,413,29,20" Grid.ColumnSpan="2" />
 
         <ProgressBar Name="pbInterminate" Visibility="Hidden" Minimum="0" Maximum="100" IsIndeterminate="True" Margin="0,413,29,20" Grid.ColumnSpan="2"/>
-        <Button x:Name="button_create" Content="Create" HorizontalAlignment="Right" Margin="-24,173,618,0" VerticalAlignment="Top" Width="54" Click="Button_create_Click" Height="37"/>
+        <Button x:Name="button_create" Content="Create" HorizontalAlignment="Left" Margin="-24,173,618,0" VerticalAlignment="Top" Width="54" Click="Button_create_Click" Height="37"/>
         <Label x:Name="labelLoad" Content="LoadBy" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="85"/>
         <CheckBox x:Name="checkBoxDescending" Content="Descending" HorizontalAlignment="Left" Margin="264,15,0,0" VerticalAlignment="Top" Checked="CheckBoxDescending_Checked" Unchecked="CheckBoxDescending_Unchecked" />
-        <Label x:Name="label_date" HorizontalAlignment="Left" Margin="10,413,0,0" VerticalAlignment="Top" Height="27" Width="98"/>
+        <Label x:Name="label_date" HorizontalAlignment="Left" Margin="10,0,0,24" VerticalAlignment="Bottom" Height="27" Width="98"/>
         <Button x:Name="buttonSearch" Content="Search" HorizontalAlignment="Left" Margin="271,68,0,0" VerticalAlignment="Top" Width="75" Height="21" Click="ButtonSearch_Click"/>
         <TextBox x:Name="textBoxSearch" Foreground="Silver" Text ="Enter value" HorizontalAlignment="Left" Height="20" Margin="96,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" GotFocus="TextBoxSearch_MouseUp"/>
         <Button x:Name="button_update" Visibility="Hidden" Content="Update" HorizontalAlignment="Left" Margin="-24,238,0,0" VerticalAlignment="Top" Width="54" Click="Button_update" Height="37"/>
-        <Label x:Name="resultLabel" Content="Label" HorizontalAlignment="Left" Margin="603,395,0,0" VerticalAlignment="Top"/>
-        <!--<Button x:Name="button_update" Content="Update" HorizontalAlignment="Left" Margin="-24,228,0,0" VerticalAlignment="Top" Width="54" Click="Button_update" Height="37"/>-->
+        <Label x:Name="resultLabel" Content="Label" HorizontalAlignment="Right" Margin="0,395,7,0" VerticalAlignment="Top"/>
+        
+      
     </Grid>
 
 </Window>

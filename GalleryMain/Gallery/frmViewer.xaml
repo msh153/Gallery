@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gallery"
         mc:Ignorable="d"
-        Title="frmViewer" Height="444" Width="794" Loaded="WindowLoaded">
+        Title="frmViewer" Height="444" Width="794" Loaded="WindowLoaded" KeyDown="Window_KeyDown">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Azure" Offset="0"/>
@@ -20,7 +20,7 @@
                 <EventTrigger RoutedEvent="Button.Click">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation 
+                            <DoubleAnimation Name="myDoubleAnimationNext"
             Storyboard.TargetName="ViewedPhotoForSlideShow" 
             Storyboard.TargetProperty="Opacity"
             From="0.0" To="1.0" Duration="0:0:2" 
@@ -38,6 +38,7 @@
                     <BeginStoryboard>
                         <Storyboard>
                             <DoubleAnimation 
+                                Name="myDoubleAnimationPrev"
             Storyboard.TargetName="ViewedPhotoForSlideShow" 
             Storyboard.TargetProperty="Opacity"
             From="0.0" To="1.0" Duration="0:0:2" 

@@ -134,12 +134,14 @@ namespace Gallery
                 {
                     Width = 400,
                     Height = 400,
-                Source = new BitmapImage(new Uri(op.FileName)),
+                    Source = new BitmapImage(new Uri(op.FileName)),
 
-            };
-            inkCanvas1.Children.Add(imgPhoto);
+                };
+                inkCanvas1.Children.Add(imgPhoto);
             }
+            else
+                MessageBox.Show("Something wrong");
+        }
         }
     }
    
-}

@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Threading;
 using ProgressBar = System.Windows.Forms.ProgressBar;
 using System.ComponentModel;
+using DataFormats = System.Windows.Forms.DataFormats;
 
 namespace Gallery
 {
@@ -30,42 +31,37 @@ namespace Gallery
 
     public partial class MainWindow : Window
     {
-
-        public BackgroundWorker backgroundWorker;
-        IList<Image> images = new List<Image>();
+       public IList<Image> images = new List<Image>();
         private List<string> filter = new List<string>() { @"bmp", @"jpg", @"gif", @"png" };
         Dictionary<Image, DateTime> photos = new Dictionary<Image, DateTime>();
         public MainWindow()
         {
             InitializeComponent();
-            backgroundWorker = ((BackgroundWorker)this.FindResource("backgroundWorker"));
 
         }
         bool Check;
         public void Add()
         {
             string path = editor.Add();
-                    var bi = new BitmapImage(new Uri(path))
-                    {
-                        CacheOption = BitmapCacheOption.OnLoad
-                    };
+            var bi = new BitmapImage(new Uri(path))
+            {
+                CacheOption = BitmapCacheOption.OnLoad
+            };
 
-                    var img = new System.Windows.Controls.Image
-                    {
-                        Source = bi,
-                        Width = 150,
-                        Height = 100
-                    };
-                    images.Add(img);
-        listbox.ItemsSource = images;
+            var img = new System.Windows.Controls.Image
+            {
+                Source = bi,
+                Width = 150,
+                Height = 100
+            };
+            images.Add(img);
+            listbox.ItemsSource = images;
         }
-        int Count;
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        FileInfo[] files;
+        private void LoadButton_ClickAsync(object sender, RoutedEventArgs e)
         {
-            pbStatus.Visibility = Visibility.Visible;
-            images.Clear();
+            //images.Clear();
             listbox.ItemsSource = null;
-            FileInfo[] files;
             DirectoryInfo info = new DirectoryInfo(textBox.Text);
             try
             {
@@ -108,16 +104,8 @@ namespace Gallery
                 MessageBox.Show("Folder path is not correct");
                 throw new FileNotFoundException();
             }
-            pbStatus.Maximum = files.Count();
-            Count = files.Count();
-            int percentage;
             foreach (var file in files)
             {
-                percentage = (files.Count()-files.Count() + 1) * 100 / files.Count();
-                backgroundWorker.ReportProgress(percentage);
-                pbStatus.Visibility = Visibility.Visible;
-                pbStatus.Maximum = files.Count();
-                //++pbStatus.Value; 
                 if (filter.Exists(n => n == file.Name.Split('.').Last().ToLower()))
                 {
                     try
@@ -143,22 +131,7 @@ namespace Gallery
                 }
             }
             listbox.ItemsSource = images;
-            pbInterminate.Visibility = Visibility.Hidden;
-        }
 
-        void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            pbStatus.Value = e.ProgressPercentage;
-        }
-
-        void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            MessageBox.Show("Done");
-        }
-        private void LoadButton_ClickAsync(object sender, RoutedEventArgs e)
-        {
-            backgroundWorker.RunWorkerAsync();
-           
         }
         private void OnPhotoClick(object sender, MouseButtonEventArgs e)
         {
@@ -218,18 +191,6 @@ namespace Gallery
             Check = true;
         }
 
-        private void Listbox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            foreach (var pair in photos)
-            {
-                if (listbox.SelectedItem == pair.Key)
-                {
-                    label_date.Content = pair.Value;
-                    Console.WriteLine(pair.Value);
-                }
-            }
-        }
-
         private void TextBoxSearch_MouseUp(object sender, RoutedEventArgs e)
         {
             textBoxSearch.Foreground = Brushes.Black;
@@ -245,7 +206,7 @@ namespace Gallery
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
             images.Clear();
-
+            listbox.ItemsSource = null;
             switch ((ComboBoxSearch.SelectedIndex))
             {
                 case 0:
@@ -292,12 +253,57 @@ namespace Gallery
                     break;
             }
             listbox.ItemsSource = images;
-            images.Clear();
         }
 
         private void Button_update(object sender, RoutedEventArgs e)
         {
             Add();
         }
+
+        private void Listbox_Drop(object sender, System.Windows.DragEventArgs e)
+        {
+            listbox.ItemsSource = null;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                //    string folderPath = Convert.ToString(e.Data.GetData("FileName"));
+                //object data = e.Data.GetData(typeof(Object));
+                for (int i = 0; i < files.Count(); i++)
+                {
+                    if (filter.Exists(n => n == files[i].Split('.').Last().ToLower()))
+                    {
+                        var bi = new BitmapImage(new Uri(files[i]))
+                        {
+                            CacheOption = BitmapCacheOption.OnLoad
+                        };
+                        var img = new System.Windows.Controls.Image
+                        {
+                            Source = bi,
+                            Width = 150,
+                            Height = 100
+                        };
+                        images.Add(img);
+                        photos.Add(img, File.GetCreationTime(files[i]));
+                    }
+                }
+                listbox.ItemsSource = images;
+            }
+
+        }
+
+        private void Listbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (var pair in photos)
+            {
+                if (listbox.SelectedItem == pair.Key)
+                {
+                    label_date.Content = pair.Value;
+                }
+            }
+            //label_date.Content = photos.SingleOrDefault(x => x.Key == listbox.SelectedItem).Value;
+            
+        }
     }
 }
+    

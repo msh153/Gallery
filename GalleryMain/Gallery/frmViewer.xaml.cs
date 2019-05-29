@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace Gallery
@@ -59,6 +60,11 @@ namespace Gallery
                 counterPhoto = 0;
             }
             ViewedPhotoForSlideShow.Source = Images[counterPhoto].Source;
+            if (!needAnimation)
+            {
+                myDoubleAnimationNext.From = 1;
+                myDoubleAnimationNext.To = 1;
+            }
             SelectedPhoto = Images[counterPhoto];
             
         }
@@ -73,7 +79,24 @@ namespace Gallery
             counterPhoto--;
 
             ViewedPhotoForSlideShow.Source = Images[counterPhoto].Source;
+            if (!needAnimation)
+            {
+                myDoubleAnimationPrev.From = 1;
+                myDoubleAnimationPrev.To = 1;
+            }
                 SelectedPhoto = Images[counterPhoto];
+        }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Right)
+            {
+                Button_Next_Click(sender, e);
+            }
+            else if (e.Key == System.Windows.Input.Key.Left)
+            {
+                Button_Prev_Click(sender, e);
+            }
         }
     }
 }

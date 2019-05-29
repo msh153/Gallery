@@ -18,7 +18,7 @@
             <ColumnDefinition Width="83*"/>
         </Grid.ColumnDefinitions>
 
-        <InkCanvas x:Name="inkCanvas1" Margin="69,10,74,102" Grid.Column="1" RenderTransformOrigin="202,200" Width="610" Height="500">
+        <InkCanvas x:Name="inkCanvas1" Margin="69,10,68,112" Grid.Column="1" RenderTransformOrigin="202,200" Width="610">
             <Image Name="imgPhoto" Margin="64,10,-555,-270" MinWidth="100" MinHeight="100"/>
         </InkCanvas>
         <Button x:Name="buttonClear" Content="Clear" Margin="0,0,35,10" Click="Clear_Click" FontFamily="Segoe UI Black" Grid.Column="1" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom"/>
