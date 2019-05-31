@@ -31,7 +31,7 @@ namespace Gallery
 
     public partial class MainWindow : Window
     {
-       public IList<Image> images = new List<Image>();
+        public IList<Image> images = new List<Image>();
         private List<string> filter = new List<string>() { @"bmp", @"jpg", @"gif", @"png" };
         Dictionary<Image, DateTime> photos = new Dictionary<Image, DateTime>();
         public MainWindow()
@@ -60,7 +60,6 @@ namespace Gallery
         FileInfo[] files;
         private void LoadButton_ClickAsync(object sender, RoutedEventArgs e)
         {
-            //images.Clear();
             listbox.ItemsSource = null;
             DirectoryInfo info = new DirectoryInfo(textBox.Text);
             try
@@ -104,6 +103,7 @@ namespace Gallery
                 MessageBox.Show("Folder path is not correct");
                 throw new FileNotFoundException();
             }
+
             foreach (var file in files)
             {
                 if (filter.Exists(n => n == file.Name.Split('.').Last().ToLower()))
@@ -121,8 +121,10 @@ namespace Gallery
                             Width = 150,
                             Height = 100
                         };
-                        images.Add(img);
-                        photos.Add(img, file.CreationTimeUtc);
+                                images.Add(img);
+                                photos.Add(img, file.CreationTimeUtc);
+           
+                        
                     }
                     catch (Exception ex)
                     {
@@ -131,7 +133,6 @@ namespace Gallery
                 }
             }
             listbox.ItemsSource = images;
-
         }
         private void OnPhotoClick(object sender, MouseButtonEventArgs e)
         {
@@ -202,9 +203,15 @@ namespace Gallery
             textBoxSearch.Foreground = Brushes.Silver;
             textBoxSearch.Text = "Enter value";
         }
+        public IList<Image> deleted = new List<Image>();
+
 
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
+            foreach (var item in images)
+            {
+                deleted.Add(item);
+            }
             images.Clear();
             listbox.ItemsSource = null;
             switch ((ComboBoxSearch.SelectedIndex))
@@ -214,12 +221,12 @@ namespace Gallery
                     {
                         short b;
                         if (Int16.TryParse(textBoxSearch.Text, out b) == false)
-                            MessageBox.Show("Error!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("Not found!", "Not found", MessageBoxButton.OK, MessageBoxImage.Error);
                         short c = Convert.ToInt16(pair.Value.ToString("dd"));
                         if (b == c)
                         {
                             Image img = pair.Key;
-                            images.Add(img);
+                            images.Add(img); 
                         }
                     }
                     break;
@@ -228,7 +235,7 @@ namespace Gallery
                     {
                         short b;
                         if (Int16.TryParse(textBoxSearch.Text, out b) == false)
-                            MessageBox.Show("Error!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("Not found!", "Not found", MessageBoxButton.OK, MessageBoxImage.Error);
                         short c = Convert.ToInt16(pair.Value.ToString("MM"));
                         if (b == c)
                         {
@@ -242,7 +249,7 @@ namespace Gallery
                     {
                         short b;
                         if (Int16.TryParse(textBoxSearch.Text, out b) == false)
-                            MessageBox.Show("Error!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("Not found!", "Not found", MessageBoxButton.OK, MessageBoxImage.Error);
                         short c = Convert.ToInt16(pair.Value.ToString("yyyy"));
                         if (b == c)
                         {
@@ -252,7 +259,10 @@ namespace Gallery
                     }
                     break;
             }
+            button_back.Visibility = Visibility.Visible;
             listbox.ItemsSource = images;
+
+            photos.Clear();
         }
 
         private void Button_update(object sender, RoutedEventArgs e)
@@ -266,9 +276,7 @@ namespace Gallery
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                //    string folderPath = Convert.ToString(e.Data.GetData("FileName"));
-                //object data = e.Data.GetData(typeof(Object));
+                
                 for (int i = 0; i < files.Count(); i++)
                 {
                     if (filter.Exists(n => n == files[i].Split('.').Last().ToLower()))
@@ -286,10 +294,10 @@ namespace Gallery
                         images.Add(img);
                         photos.Add(img, File.GetCreationTime(files[i]));
                     }
+                    
                 }
                 listbox.ItemsSource = images;
             }
-
         }
 
         private void Listbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -302,8 +310,44 @@ namespace Gallery
                 }
             }
             //label_date.Content = photos.SingleOrDefault(x => x.Key == listbox.SelectedItem).Value;
-            
+
+        }
+
+        private void Button_back(object sender, RoutedEventArgs e)
+        {
+            listbox.ItemsSource = null;
+            images.Clear();
+            foreach (var item in deleted)
+            {
+                images.Add(item);
+            }
+            listbox.ItemsSource = images;
+            button_back.Visibility = Visibility.Hidden;
+            deleted.Clear();
+            }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            listbox.ItemsSource = null;
+            for (int i = 0; i < images.Count; i++)
+            {
+                if (images.Contains(images[i])) { }
+
+            }
+            listbox.ItemsSource = images;
+
+        }
+
+        public void MenuItem_Click_Remove(object sender, RoutedEventArgs e)
+        {
+            listbox.ItemsSource = null;
+            foreach (var item in images)
+            {
+                deleted.Add(item);
+            }
+            button_back.Visibility = Visibility.Visible;
+            images.Clear();
+            listbox.ItemsSource = images;
         }
     }
 }
-    

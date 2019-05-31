@@ -18,16 +18,21 @@
         </LinearGradientBrush>
     </Window.Background>
     <Grid Margin="28,0,2,8">
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Remove all" Click="MenuItem_Click_Remove" />
+            </ContextMenu>
+        </Grid.ContextMenu>
         <ComboBox Name="ComboBoxShow" Height="23" VerticalAlignment="Top" Margin="107,9,408,0" SelectedIndex="0">
             <TextBlock Name="Name">Name</TextBlock>
             <TextBlock Name="Create">Create</TextBlock>
             <TextBlock Name="LastWriteTime">Last Write Time</TextBlock>
             <TextBlock Name="Lenght">Lenght</TextBlock>
         </ComboBox>
-        <ComboBox Name="ComboBoxSearch" Height="21" VerticalAlignment="Top" Margin="203,68,382,0" SelectedIndex="0">
+        <ComboBox Name="ComboBoxSearch" Height="21" VerticalAlignment="Top" Margin="185,68,382,0" SelectedIndex="0">
             <TextBlock Name="day">Day</TextBlock>
             <TextBlock Name="month">Month</TextBlock>
-            <TextBlock Name="year">e</TextBlock>
+            <TextBlock Name="year">ear</TextBlock>
         </ComboBox>
         <Button x:Name="LoadButton" Content="Load" HorizontalAlignment="Left" Margin="541,37,0,0" VerticalAlignment="Top" Width="75" Click="LoadButton_ClickAsync"/>
         <GroupBox Grid.Column="0" Margin="41,101,53,56">
@@ -43,7 +48,7 @@
                 </ListBox.ItemsPanel>
             </ListBox>
         </GroupBox>
-            
+
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="-24,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="460" Text="C:\Users\misha\Source\Repos\coursework2\GalleryMain\Gallery\bin\Debug\images"/>
         <Button x:Name="LoadButton_Copy" Content="Open Folder" HorizontalAlignment="Left" Margin="450,36,0,0" VerticalAlignment="Top" Width="75" Click="Open_Folder_Click"/>
         <Button x:Name="StartSlideShowButton" Content="Start Slide Show" HorizontalAlignment="Left" Margin="367,69,0,0" VerticalAlignment="Top" Width="100" Click="StartSlideShowButton_Click"/>
@@ -52,7 +57,7 @@
         <ProgressBar Name="pbStatus" Visibility="Hidden" Minimum="0" Value="0" Margin="0,413,29,20" Grid.ColumnSpan="2" />
 
         <ProgressBar Name="pbInterminate" Visibility="Hidden" Minimum="0" Maximum="100" IsIndeterminate="True" Margin="0,413,29,20" Grid.ColumnSpan="2"/>
-        <Button x:Name="button_create" Content="Create" HorizontalAlignment="Left" Margin="-24,173,618,0" VerticalAlignment="Top" Width="54" Click="Button_create_Click" Height="37"/>
+        <Button x:Name="button_create" Content="Create" HorizontalAlignment="Left" Margin="-24,173,0,0" VerticalAlignment="Top" Width="54" Click="Button_create_Click" Height="38"/>
         <Label x:Name="labelLoad" Content="LoadBy" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="85"/>
         <CheckBox x:Name="checkBoxDescending" Content="Descending" HorizontalAlignment="Left" Margin="264,15,0,0" VerticalAlignment="Top" Checked="CheckBoxDescending_Checked" Unchecked="CheckBoxDescending_Unchecked" />
         <Label x:Name="label_date" HorizontalAlignment="Left" Margin="10,0,0,24" VerticalAlignment="Bottom" Height="27" Width="98"/>
@@ -60,8 +65,10 @@
         <TextBox x:Name="textBoxSearch" Foreground="Silver" Text ="Enter value" HorizontalAlignment="Left" Height="20" Margin="96,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" GotFocus="TextBoxSearch_MouseUp"/>
         <Button x:Name="button_update" Visibility="Hidden" Content="Update" HorizontalAlignment="Left" Margin="-24,238,0,0" VerticalAlignment="Top" Width="54" Click="Button_update" Height="37"/>
         <Label x:Name="resultLabel" Content="Label" HorizontalAlignment="Right" Margin="0,395,7,0" VerticalAlignment="Top"/>
-        
-      
+        <Button x:Name="button_back" Visibility="Hidden" Content="Back" HorizontalAlignment="Left" Margin="-24,117,0,0" VerticalAlignment="Top" Width="54" Click="Button_back" Height="37"/>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="-24,338,0,0" VerticalAlignment="Top" Width="65" Height="34" Click="Button_Click"/>
+
+
     </Grid>
 
 </Window>

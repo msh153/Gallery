@@ -5,28 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gallery"
         mc:Ignorable="d"
-        Title="editor" Height="450" Width="800">
+        Title="editor" Height="524" Width="835">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Azure" Offset="0"/>
             <GradientStop Color="Aqua" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
-    <Grid>
+    <Grid Margin="3,10,13,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="83*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="737*"/>
         </Grid.ColumnDefinitions>
 
-        <InkCanvas x:Name="inkCanvas1" Margin="69,10,68,112" Grid.Column="1" RenderTransformOrigin="202,200" Width="610">
-            <Image Name="imgPhoto" Margin="64,10,-555,-270" MinWidth="100" MinHeight="100"/>
+        <InkCanvas x:Name="inkCanvas1" Margin="42,10,0,0" RenderTransformOrigin="202,200" Width="671" Height="347" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1">
+            <Image Name="imgPhoto" Margin="64,9,-634,-276" MinWidth="100" MinHeight="100" Height="267" VerticalAlignment="Top" HorizontalAlignment="Left" Width="570"/>
         </InkCanvas>
         <Button x:Name="buttonClear" Content="Clear" Margin="0,0,35,10" Click="Clear_Click" FontFamily="Segoe UI Black" Grid.Column="1" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom"/>
-        <Button x:Name="buttonClose" Content="Close" HorizontalAlignment="Left" Margin="36,0,0,10" VerticalAlignment="Bottom" Width="75" Click="ButtonClose_Click" FontFamily="Segoe UI Black" Grid.ColumnSpan="2"/>
-        <Button x:Name="buttonSave" Content="Save" Margin="317,0,355,10" VerticalAlignment="Bottom" Click="ButtonSave_Click" FontFamily="Segoe UI Black" Grid.Column="1"/>
+        <Button x:Name="buttonClose" Content="Close" HorizontalAlignment="Left" Margin="36,0,0,10" VerticalAlignment="Bottom" Width="75" Click="ButtonClose_Click" FontFamily="Segoe UI Black" Grid.ColumnSpan="2" Height="20"/>
+        <Button x:Name="buttonSave" Content="Save" Margin="317,0,344,10" VerticalAlignment="Bottom" Click="ButtonSave_Click" FontFamily="Segoe UI Black" Grid.Column="1" Height="20"/>
         <Slider x:Name="sld_RedColor" Background="Red" Minimum="0" Maximum="255" Margin="25,0,0,79" ValueChanged="sld_Color_ValueChanged" Grid.ColumnSpan="2" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="269"/>
-        <Slider x:Name="sld_GreenColor" Background="Green" Minimum="0" Maximum="255" Margin="25,0,0,59" VerticalAlignment="Bottom" ValueChanged="sld_Color_ValueChanged" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="269"/>
-        <Slider x:Name="sld_BlueColor" Background="Blue" Minimum="0" Maximum="255" Margin="25,0,0,39" VerticalAlignment="Bottom" ValueChanged="sld_Color_ValueChanged" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="269"/>
+        <Slider x:Name="sld_GreenColor" Background="Green" Minimum="0" Maximum="255" Margin="25,0,0,59" VerticalAlignment="Bottom" ValueChanged="sld_Color_ValueChanged" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="269" Height="18"/>
+        <Slider x:Name="sld_BlueColor" Background="Blue" Minimum="0" Maximum="255" Margin="25,0,0,39" VerticalAlignment="Bottom" ValueChanged="sld_Color_ValueChanged" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="269" Height="18"/>
         <Label x:Name="lbl1" Content="Changed color" HorizontalAlignment="Left" Margin="332,0,0,59" VerticalAlignment="Bottom" FontFamily="Stencil" Height="26" Width="123" FontSize="14" Grid.Column="1" BorderBrush="White" OpacityMask="White">
             <Label.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -35,8 +35,8 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <CheckBox x:Name="cb_Select" Content="To select" Margin="530,0,139,59" VerticalAlignment="Bottom" FontFamily="Segoe UI Black" Grid.Column="1" Checked="cb_Select_checked" Unchecked="Cb_Select_Unchecked"/>
-        <Button x:Name="buttonAdd" Content="Add Image" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,22,74" VerticalAlignment="Bottom" Width="75" Click="ButtonAdd_Click"/>
+        <CheckBox x:Name="cb_Select" Content="To select" Margin="0,0,130,64" VerticalAlignment="Bottom" FontFamily="Segoe UI Black" Grid.Column="1" Checked="cb_Select_checked" Unchecked="Cb_Select_Unchecked" Height="15" HorizontalAlignment="Right" Width="84"/>
+        <Button x:Name="buttonAdd" Content="Add Image" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,22,74" VerticalAlignment="Bottom" Width="75" Click="ButtonAdd_Click" Height="20"/>
 
     </Grid>
 </Window>

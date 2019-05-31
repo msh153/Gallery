@@ -26,6 +26,7 @@ namespace Gallery
         public bool needAnimation;
         public int interval;
         public bool Check;
+        private DispatcherTimer timer = new DispatcherTimer();
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             if (!needAnimation)
@@ -34,7 +35,6 @@ namespace Gallery
             }
             buttonNext.Visibility = Visibility.Hidden;
             buttonPrevious.Visibility = Visibility.Hidden;
-            DispatcherTimer timer = new DispatcherTimer();
             if(!Check)
             timer.Tick += (s, ev) => buttonNext.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
              else timer.Tick += (s, ev) => buttonPrevious.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
@@ -97,6 +97,10 @@ namespace Gallery
             {
                 Button_Prev_Click(sender, e);
             }
+            else if (e.Key == System.Windows.Input.Key.Space)
+                timer.Stop();
+            else if (e.Key == System.Windows.Input.Key.Enter)
+                timer.Start();
         }
     }
 }

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Gallery.MainWindow">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAgAIMAIAAAAFCAMEAMBMBCAAACAAADAgAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gallery.frmViewer">
+    <Position X="3.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYCAggAAAAAAAAAAAAgAACIAAAAABCAAABAAAAAAEA=</HashCode>
+      <FileName>frmViewer.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gallery.editor">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Gallery.editor.ColorRGB">
+        <Compartments>
+          <Compartment Name="Properties" Collapsed="true" />
+        </Compartments>
+        <TypeIdentifier>
+          <NewMemberFileName>editor.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAIIAAAAEAAAAAAAAAAAAQAIAgAEBAAAAAIAAAAhAAA=</HashCode>
+      <FileName>editor.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

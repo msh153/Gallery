@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -60,22 +61,35 @@ namespace Gallery
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            this.inkCanvas1.EditingMode = InkCanvasEditingMode.None;
-            string imgPath = @"D:\file.jpeg";
-            MemoryStream ms = new MemoryStream();
-            FileStream fs = new FileStream(imgPath, FileMode.Create);
-            RenderTargetBitmap rtb = new RenderTargetBitmap((int)inkCanvas1.Width, (int)inkCanvas1.Height, 200, 200, PixelFormats.Default);
-            rtb.Render(inkCanvas1);
-            GifBitmapEncoder gifEnc = new GifBitmapEncoder();
-            gifEnc.Frames.Add(BitmapFrame.Create(rtb));
-            gifEnc.Save(fs);
-            fs.Close();
-            this.inkCanvas1.EditingMode = InkCanvasEditingMode.Ink;
-            MessageBox.Show("File has saved, " + imgPath);
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Images|*.png;*.bmp;*.jpg";
+            ImageFormat format = ImageFormat.Png;
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string ext = System.IO.Path.GetExtension(sfd.FileName);
+                switch (ext)
+                {
+                    case ".jpg":
+                        format = ImageFormat.Jpeg;
+                        break;
+                    case ".bmp":
+                        format = ImageFormat.Bmp;
+                        break;
+                }
+                this.inkCanvas1.EditingMode = InkCanvasEditingMode.None;
+                string imgPath = sfd.FileName;
+                MemoryStream ms = new MemoryStream();
+                FileStream fs = new FileStream(imgPath, FileMode.Create);
+                RenderTargetBitmap rtb = new RenderTargetBitmap((int)inkCanvas1.Width, (int)inkCanvas1.Height,96, 96, PixelFormats.Default);
+                rtb.Render(inkCanvas1);
+                GifBitmapEncoder gifEnc = new GifBitmapEncoder();
+                gifEnc.Frames.Add(BitmapFrame.Create(rtb));
+                gifEnc.Save(fs);
+                fs.Close();
+                this.inkCanvas1.EditingMode = InkCanvasEditingMode.Ink;
+                MessageBox.Show("File has saved, " + imgPath);
 
-
-
-
+            }
         }
         public class ColorRGB
         {
@@ -132,8 +146,8 @@ namespace Gallery
             {
                 Image imgPhoto = new Image
                 {
-                    Width = 400,
-                    Height = 400,
+                    Width = 600,
+                    Height = 300,
                     Source = new BitmapImage(new Uri(op.FileName)),
 
                 };
