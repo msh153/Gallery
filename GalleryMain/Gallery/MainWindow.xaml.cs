@@ -349,7 +349,9 @@ namespace Gallery
      
         private void SortDate_Click(object sender, RoutedEventArgs e)
         {
-            if(!check)
+            listbox.ItemsSource = null;
+            images.Clear();
+            if (!check)
             photos = photos.OrderBy(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
             else
                 photos = photos.OrderByDescending(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
