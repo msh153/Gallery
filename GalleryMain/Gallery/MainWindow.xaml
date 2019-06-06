@@ -7,35 +7,40 @@
          xmlns:cm="clr-namespace:System.ComponentModel;assembly=System"
         xmlns:local="clr-namespace:Gallery"
         mc:Ignorable="d"
-        Title="MainWindow" Height="502.723" Width="685.362">
-    <Window.Resources>
-
-    </Window.Resources>
+        Title="Gallery" Height="502.723" Width="703.362" Icon="wwalczyszyn-android-style-gallery.ico">
     <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
             <GradientStop Color="Azure" Offset="0"/>
             <GradientStop Color="Aqua" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
     <Grid Margin="28,0,2,8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="92*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="133*"/>
+            <RowDefinition Height="331*"/>
+        </Grid.RowDefinitions>
         <Grid.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="Remove all" Click="MenuItem_Click_Remove" />
             </ContextMenu>
         </Grid.ContextMenu>
-        <ComboBox Name="ComboBoxShow" Height="23" VerticalAlignment="Top" Margin="107,9,408,0" SelectedIndex="0">
+        <ComboBox Name="ComboBoxShow" Height="26" VerticalAlignment="Top" Margin="85.519,9,408,0" SelectedIndex="0" Grid.Column="1">
             <TextBlock Name="Name">Name</TextBlock>
             <TextBlock Name="Create">Create</TextBlock>
-            <TextBlock Name="LastWriteTime">Last Write Time</TextBlock>
+            <TextBlock Name="LastWriteTime">Last write time</TextBlock>
             <TextBlock Name="Lenght">Lenght</TextBlock>
         </ComboBox>
-        <ComboBox Name="ComboBoxSearch" Height="21" VerticalAlignment="Top" Margin="185,68,382,0" SelectedIndex="0">
+        <ComboBox Name="ComboBoxSearch" Height="21" VerticalAlignment="Top" Margin="134.519,73,411,0" SelectedIndex="0" Grid.Column="1">
             <TextBlock Name="day">Day</TextBlock>
             <TextBlock Name="month">Month</TextBlock>
-            <TextBlock Name="year">ear</TextBlock>
+            <TextBlock Name="year">Year</TextBlock>
         </ComboBox>
-        <Button x:Name="LoadButton" Content="Load" HorizontalAlignment="Left" Margin="541,37,0,0" VerticalAlignment="Top" Width="75" Click="LoadButton_ClickAsync"/>
-        <GroupBox Grid.Column="0" Margin="41,101,53,56">
+        <Button x:Name="LoadButton" Content="Load" HorizontalAlignment="Left" Margin="523.519,42,0,0" VerticalAlignment="Top" Width="54" Click="LoadButton_Click" Height="26" Grid.Column="1"/>
+        <GroupBox Grid.Column="1" Margin="19.519,101,53,56" Grid.RowSpan="2">
 
             <ListBox  x:Name="listbox"
           SelectionMode="Extended" 
@@ -48,25 +53,22 @@
                 </ListBox.ItemsPanel>
             </ListBox>
         </GroupBox>
-
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="-24,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="460" Text="C:\Users\misha\Source\Repos\coursework2\GalleryMain\Gallery\bin\Debug\images"/>
-        <Button x:Name="LoadButton_Copy" Content="Open Folder" HorizontalAlignment="Left" Margin="450,36,0,0" VerticalAlignment="Top" Width="75" Click="Open_Folder_Click"/>
-        <Button x:Name="StartSlideShowButton" Content="Start Slide Show" HorizontalAlignment="Left" Margin="367,69,0,0" VerticalAlignment="Top" Width="100" Click="StartSlideShowButton_Click"/>
-        <TextBox x:Name="textBox_interval" HorizontalAlignment="Left" Height="21" Margin="599,68,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="29"/>
-        <Label x:Name="label" Content="Image change interval" HorizontalAlignment="Left" Margin="467,66,0,0" VerticalAlignment="Top" Height="30"/>
-        <ProgressBar Name="pbStatus" Visibility="Hidden" Minimum="0" Value="0" Margin="0,413,29,20" Grid.ColumnSpan="2" />
-
-        <ProgressBar Name="pbInterminate" Visibility="Hidden" Minimum="0" Maximum="100" IsIndeterminate="True" Margin="0,413,29,20" Grid.ColumnSpan="2"/>
-        <Button x:Name="button_create" Content="Create" HorizontalAlignment="Left" Margin="-24,173,0,0" VerticalAlignment="Top" Width="54" Click="Button_create_Click" Height="38"/>
-        <Label x:Name="labelLoad" Content="LoadBy" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="85"/>
-        <CheckBox x:Name="checkBoxDescending" Content="Descending" HorizontalAlignment="Left" Margin="264,15,0,0" VerticalAlignment="Top" Checked="CheckBoxDescending_Checked" Unchecked="CheckBoxDescending_Unchecked" />
-        <Label x:Name="label_date" HorizontalAlignment="Left" Margin="10,0,0,24" VerticalAlignment="Bottom" Height="27" Width="98"/>
-        <Button x:Name="buttonSearch" Content="Search" HorizontalAlignment="Left" Margin="271,68,0,0" VerticalAlignment="Top" Width="75" Height="21" Click="ButtonSearch_Click"/>
-        <TextBox x:Name="textBoxSearch" Foreground="Silver" Text ="Enter value" HorizontalAlignment="Left" Height="20" Margin="96,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" GotFocus="TextBoxSearch_MouseUp"/>
-        <Button x:Name="button_update" Visibility="Hidden" Content="Update" HorizontalAlignment="Left" Margin="-24,238,0,0" VerticalAlignment="Top" Width="54" Click="Button_update" Height="37"/>
-        <Label x:Name="resultLabel" Content="Label" HorizontalAlignment="Right" Margin="0,395,7,0" VerticalAlignment="Top"/>
-        <Button x:Name="button_back" Visibility="Hidden" Content="Back" HorizontalAlignment="Left" Margin="-24,117,0,0" VerticalAlignment="Top" Width="54" Click="Button_back" Height="37"/>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="-24,338,0,0" VerticalAlignment="Top" Width="65" Height="34" Click="Button_Click"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="20" Margin="-14,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="460" Text="C:\Users\misha\Source\Repos\coursework2\GalleryMain\Gallery\bin\Debug\images" Grid.ColumnSpan="2"/>
+        <Button x:Name="LoadButton_Folder" Content="Open Folder" HorizontalAlignment="Left" Margin="429.519,42,0,0" VerticalAlignment="Top" Width="75" Click="Open_Folder_Click" Height="26" Grid.Column="1"/>
+        <Button x:Name="StartSlideShowButton" Content="Start Slide Show" HorizontalAlignment="Left" Margin="324.519,71,0,0" VerticalAlignment="Top" Width="100" Click="StartSlideShowButton_Click" Height="26" Grid.Column="1"/>
+        <TextBox x:Name="textBox_interval" HorizontalAlignment="Left" Height="21" Margin="561.519,73,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="29" Grid.Column="1"/>
+        <Label x:Name="label" Content="Image change interval" HorizontalAlignment="Left" Margin="429.519,71,0,0" VerticalAlignment="Top" Height="30" Width="127" Grid.Column="1"/>
+        <ProgressBar Name="pbInterminate" Visibility="Hidden" Minimum="0" Maximum="100" IsIndeterminate="True" Margin="0,282,29,20" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button x:Name="button_create" Content="Create" HorizontalAlignment="Left" Margin="-24,42,0,0" VerticalAlignment="Top" Width="54" Click="Button_create_Click" Height="26" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Label x:Name="labelLoad" Content="LoadBy" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="54" Height="26" Grid.ColumnSpan="2"/>
+        <CheckBox x:Name="checkBoxDescending" Content="Descending" HorizontalAlignment="Left" Margin="242.519,15,0,0" VerticalAlignment="Top" Checked="CheckBoxDescending_Checked" Unchecked="CheckBoxDescending_Unchecked" Height="15" Width="82" Grid.Column="1" />
+        <Label x:Name="label_date" HorizontalAlignment="Left" Margin="10,0,0,24" VerticalAlignment="Bottom" Height="27" Width="98" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button x:Name="buttonSearch" Content="Search" HorizontalAlignment="Left" Margin="254.519,71,0,0" VerticalAlignment="Top" Width="54" Height="26" Click="ButtonSearch_Click" Grid.Column="1"/>
+        <TextBox x:Name="textBoxSearch" Foreground="Silver" Text ="Enter value" HorizontalAlignment="Left" Height="20" Margin="40.519,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" GotFocus="TextBoxSearch_MouseUp" Grid.Column="1"/>
+        <Button x:Name="button_update" Visibility="Hidden" Content="Update" HorizontalAlignment="Left" Margin="-24,97,0,0" VerticalAlignment="Top" Width="54" Click="Button_update" Height="26" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button x:Name="button_back" Visibility="Hidden" Content="Back" HorizontalAlignment="Left" Margin="-24,0,0,0" VerticalAlignment="Top" Width="54" Click="Button_back" Height="26" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button x:Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="523.519,9,0,0" VerticalAlignment="Top" Width="54" Click="AddButton_Click" Height="25" Grid.Column="1"/>
+        <Button x:Name="SortDate" Content="Sort by&#xD;&#xA; date" HorizontalAlignment="Left" Margin="-24,157,0,0" Grid.Row="1" VerticalAlignment="Top" Width="54" Height="34" Click="SortDate_Click" Grid.ColumnSpan="2"/>
 
 
     </Grid>

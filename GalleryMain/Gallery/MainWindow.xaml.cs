@@ -31,7 +31,7 @@ namespace Gallery
 
     public partial class MainWindow : Window
     {
-        public IList<Image> images = new List<Image>();
+        public List<Image> images = new List<Image>();
         private List<string> filter = new List<string>() { @"bmp", @"jpg", @"gif", @"png" };
         Dictionary<Image, DateTime> photos = new Dictionary<Image, DateTime>();
         public MainWindow()
@@ -39,16 +39,16 @@ namespace Gallery
             InitializeComponent();
 
         }
-        bool Check;
+        bool check;
         public void Add()
         {
             string path = editor.Add();
-            var bi = new BitmapImage(new Uri(path))
+            BitmapImage bi = new BitmapImage(new Uri(path))
             {
                 CacheOption = BitmapCacheOption.OnLoad
             };
 
-            var img = new System.Windows.Controls.Image
+            Image img = new Image
             {
                 Source = bi,
                 Width = 150,
@@ -58,14 +58,20 @@ namespace Gallery
             listbox.ItemsSource = images;
         }
         FileInfo[] files;
-        private void LoadButton_ClickAsync(object sender, RoutedEventArgs e)
+        bool loadoraddb;
+        private void LoadorAdd()
         {
+            if (loadoraddb)
+            {
+                images.Clear();
+                photos.Clear();
+            }
             listbox.ItemsSource = null;
             DirectoryInfo info = new DirectoryInfo(textBox.Text);
             try
             {
                 files = info.GetFiles().OrderBy(p => p.Name).ToArray();
-                if (Check == true)
+                if (check == true)
                     switch ((ComboBoxShow.SelectedIndex))
                     {
                         case 0:
@@ -101,38 +107,35 @@ namespace Gallery
             catch
             {
                 MessageBox.Show("Folder path is not correct");
-                throw new FileNotFoundException();
             }
 
-            foreach (var file in files)
+            foreach (FileInfo file in files)
             {
-                if (filter.Exists(n => n == file.Name.Split('.').Last().ToLower()))
+                    if (filter.Exists(n => n == file.Name.Split('.').Last().ToLower()))
                 {
-                    try
-                    {
-                        var bi = new BitmapImage(new Uri(file.FullName))
-                        {
-                            CacheOption = BitmapCacheOption.OnLoad
-                        };
+                        BitmapImage bi = new BitmapImage(new Uri(file.FullName));
 
-                        var img = new System.Windows.Controls.Image
-                        {
-                            Source = bi,
-                            Width = 150,
-                            Height = 100
-                        };
-                                images.Add(img);
-                                photos.Add(img, file.CreationTimeUtc);
-           
-                        
-                    }
-                    catch (Exception ex)
+                    Image img = new Image
                     {
-                        MessageBox.Show(ex.Message);
-                    }
+                        Source = bi,
+                        Width = 150,
+                        Height = 100
+                    };
+                    images.Add(img);
+                    photos.Add(img, file.CreationTimeUtc); 
                 }
             }
             listbox.ItemsSource = images;
+        }
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            loadoraddb = false;
+            LoadorAdd();
+        }
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            loadoraddb = true;
+            LoadorAdd();
         }
         private void OnPhotoClick(object sender, MouseButtonEventArgs e)
         {
@@ -141,8 +144,6 @@ namespace Gallery
             {
                 SelectedPhoto = (Image)listbox.SelectedItem,
                 Images = images,
-                needAnimation = false,
-                interval = 2
             };
             pvWindow.Show();
         }
@@ -170,7 +171,7 @@ namespace Gallery
                 Images = images,
                 needAnimation = true,
                 interval = Convert.ToInt32(textBox_interval.Text),
-                Check = Check
+                Check = check
             };
             pvWindow.Show();
         }
@@ -184,12 +185,12 @@ namespace Gallery
 
         private void CheckBoxDescending_Unchecked(object sender, RoutedEventArgs e)
         {
-            Check = false;
+            check = false;
         }
 
         private void CheckBoxDescending_Checked(object sender, RoutedEventArgs e)
         {
-            Check = true;
+            check = true;
         }
 
         private void TextBoxSearch_MouseUp(object sender, RoutedEventArgs e)
@@ -203,7 +204,7 @@ namespace Gallery
             textBoxSearch.Foreground = Brushes.Silver;
             textBoxSearch.Text = "Enter value";
         }
-        public IList<Image> deleted = new List<Image>();
+        public List<Image> deleted = new List<Image>();
 
 
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
@@ -220,8 +221,7 @@ namespace Gallery
                     foreach (var pair in photos)
                     {
                         short b;
-                        if (Int16.TryParse(textBoxSearch.Text, out b) == false)
-                            MessageBox.Show("Not found!", "Not found", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Int16.TryParse(textBoxSearch.Text, out b);
                         short c = Convert.ToInt16(pair.Value.ToString("dd"));
                         if (b == c)
                         {
@@ -234,8 +234,8 @@ namespace Gallery
                     foreach (var pair in photos)
                     {
                         short b;
-                        if (Int16.TryParse(textBoxSearch.Text, out b) == false)
-                            MessageBox.Show("Not found!", "Not found", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Int16.TryParse(textBoxSearch.Text, out b);
+
                         short c = Convert.ToInt16(pair.Value.ToString("MM"));
                         if (b == c)
                         {
@@ -248,8 +248,8 @@ namespace Gallery
                     foreach (var pair in photos)
                     {
                         short b;
-                        if (Int16.TryParse(textBoxSearch.Text, out b) == false)
-                            MessageBox.Show("Not found!", "Not found", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Int16.TryParse(textBoxSearch.Text, out b);
+
                         short c = Convert.ToInt16(pair.Value.ToString("yyyy"));
                         if (b == c)
                         {
@@ -259,15 +259,25 @@ namespace Gallery
                     }
                     break;
             }
+            if (!check)
+                photos = photos.OrderBy(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+            else
+                photos = photos.OrderByDescending(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+            foreach (var pair in photos)
+            {
+                Image img = pair.Key;
+                images.Add(img);
+            }
             button_back.Visibility = Visibility.Visible;
+            if (!images.Any()) { MessageBox.Show("Not found!", "Not found", MessageBoxButton.OK, MessageBoxImage.Error); button_back.Visibility = Visibility.Hidden; }
+            else
             listbox.ItemsSource = images;
-
-            photos.Clear();
         }
 
         private void Button_update(object sender, RoutedEventArgs e)
         {
             Add();
+            button_update.Visibility = Visibility.Hidden;
         }
 
         private void Listbox_Drop(object sender, System.Windows.DragEventArgs e)
@@ -281,10 +291,7 @@ namespace Gallery
                 {
                     if (filter.Exists(n => n == files[i].Split('.').Last().ToLower()))
                     {
-                        var bi = new BitmapImage(new Uri(files[i]))
-                        {
-                            CacheOption = BitmapCacheOption.OnLoad
-                        };
+                        var bi = new BitmapImage(new Uri(files[i]));
                         var img = new System.Windows.Controls.Image
                         {
                             Source = bi,
@@ -310,7 +317,6 @@ namespace Gallery
                 }
             }
             //label_date.Content = photos.SingleOrDefault(x => x.Key == listbox.SelectedItem).Value;
-
         }
 
         private void Button_back(object sender, RoutedEventArgs e)
@@ -325,19 +331,7 @@ namespace Gallery
             button_back.Visibility = Visibility.Hidden;
             deleted.Clear();
             }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            listbox.ItemsSource = null;
-            for (int i = 0; i < images.Count; i++)
-            {
-                if (images.Contains(images[i])) { }
-
-            }
-            listbox.ItemsSource = images;
-
-        }
-
+  
         public void MenuItem_Click_Remove(object sender, RoutedEventArgs e)
         {
             listbox.ItemsSource = null;
@@ -347,6 +341,23 @@ namespace Gallery
             }
             button_back.Visibility = Visibility.Visible;
             images.Clear();
+            listbox.ItemsSource = images;
+        }
+
+      
+
+     
+        private void SortDate_Click(object sender, RoutedEventArgs e)
+        {
+            if(!check)
+            photos = photos.OrderBy(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+            else
+                photos = photos.OrderByDescending(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+            foreach (var pair in photos)
+            {
+                Image img = pair.Key;
+                images.Add(img);
+            }
             listbox.ItemsSource = images;
         }
     }

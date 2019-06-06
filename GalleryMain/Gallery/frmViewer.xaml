@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gallery"
         mc:Ignorable="d"
-        Title="frmViewer" Height="444" Width="794" Loaded="WindowLoaded" KeyDown="Window_KeyDown">
+        Title="Viewer" Height="444" Width="794" Loaded="WindowLoaded" KeyDown="Window_KeyDown" Icon="wwalczyszyn-android-style-gallery.ico">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Azure" Offset="0"/>
@@ -31,7 +31,7 @@
             </Button.Triggers>
 
         </Button>
-        <Button x:Name="buttonPrevious" Content="Previous" HorizontalAlignment="Right" Margin="0,0,595,10" VerticalAlignment="Bottom" Width="75" Click="Button_Prev_Click">
+        <Button x:Name="buttonPrevious" Content="Previous" HorizontalAlignment="Left" Margin="116,0,0,10" VerticalAlignment="Bottom" Width="75" Click="Button_Prev_Click">
             <Button.Triggers>
                 <!-- Animates the rectangle's opacity. -->
                 <EventTrigger RoutedEvent="Button.Click">

@@ -13,15 +13,13 @@ namespace Gallery
     /// </summary>
     public partial class frmViewer : Window
     {
-
-
         public frmViewer()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
         }
 
-        public IList<Image> Images = new List<Image>();
+        public List<Image> Images = new List<Image>();
         public Image SelectedPhoto;
         public bool needAnimation;
         public int interval;
@@ -42,7 +40,7 @@ namespace Gallery
             timer.Start();
         }
 
-        public void Add(IList<Image> images)
+        public void Add(List<Image> images)
         {
             Images = images;
         }

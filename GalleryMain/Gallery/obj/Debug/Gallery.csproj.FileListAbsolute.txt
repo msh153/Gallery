@@ -18,4 +18,3 @@ C:\Users\misha\Source\Repos\coursework2\GalleryMain\Gallery\obj\Debug\frmViewer.
 C:\Users\misha\Source\Repos\coursework2\GalleryMain\Gallery\obj\Debug\Gallery.csproj.CopyComplete
 C:\Users\misha\Source\Repos\coursework2\GalleryMain\Gallery\obj\Debug\editor.g.cs
 C:\Users\misha\Source\Repos\coursework2\GalleryMain\Gallery\obj\Debug\editor.baml
-C:\Users\misha\Source\Repos\coursework2\GalleryMain\Gallery\bin\Debug\d2v3smb-1ee8fd44-63dc-46de-96fd-50c4189bbb9c.gif

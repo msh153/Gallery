@@ -5,23 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gallery"
         mc:Ignorable="d"
-        Title="editor" Height="524" Width="835">
+        Title="Editor" Height="524" Width="835" MinWidth="835" MinHeight="524" MaxWidth="835" MaxHeight="524" Icon="wwalczyszyn-android-style-gallery.ico">
     <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="Azure" Offset="0"/>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="WhiteSmoke" Offset="0"/>
             <GradientStop Color="Aqua" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
-    <Grid Margin="3,10,13,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40*"/>
-            <ColumnDefinition Width="737*"/>
-        </Grid.ColumnDefinitions>
-
-        <InkCanvas x:Name="inkCanvas1" Margin="42,10,0,0" RenderTransformOrigin="202,200" Width="671" Height="347" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1">
-            <Image Name="imgPhoto" Margin="64,9,-634,-276" MinWidth="100" MinHeight="100" Height="267" VerticalAlignment="Top" HorizontalAlignment="Left" Width="570"/>
+    <Grid Margin="38,5,15,18" HorizontalAlignment="Center" Width="774" Height="470" VerticalAlignment="Center">
+        <InkCanvas x:Name="inkCanvas1" Margin="150,10,130,124" RenderTransformOrigin="202,200" Width="Auto">
+            <Image Name="imgPhoto" Margin="0,37,-521,-314" Height="Auto" HorizontalAlignment="Left" Width="Auto"/>
         </InkCanvas>
-        <Button x:Name="buttonClear" Content="Clear" Margin="0,0,35,10" Click="Clear_Click" FontFamily="Segoe UI Black" Grid.Column="1" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="buttonClear" Content="Clear" Margin="701,0,35,10" Click="Clear_Click" FontFamily="Segoe UI Black" Height="20" VerticalAlignment="Bottom"/>
         <Button x:Name="buttonClose" Content="Close" HorizontalAlignment="Left" Margin="36,0,0,10" VerticalAlignment="Bottom" Width="75" Click="ButtonClose_Click" FontFamily="Segoe UI Black" Grid.ColumnSpan="2" Height="20"/>
         <Button x:Name="buttonSave" Content="Save" Margin="317,0,344,10" VerticalAlignment="Bottom" Click="ButtonSave_Click" FontFamily="Segoe UI Black" Grid.Column="1" Height="20"/>
         <Slider x:Name="sld_RedColor" Background="Red" Minimum="0" Maximum="255" Margin="25,0,0,79" ValueChanged="sld_Color_ValueChanged" Grid.ColumnSpan="2" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="269"/>
