@@ -138,9 +138,7 @@ namespace Gallery
         {
             OpenFileDialog op = new OpenFileDialog();
             op.Title = "Select a picture";
-            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
-              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-              "Portable Network Graphic (*.png)|*.png";
+            op.Filter = " supported graphics|*.jpg;*.jpeg;*.png;*.bmp||";
             System.Windows.Forms.DialogResult result = op.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
             {
@@ -156,6 +154,37 @@ namespace Gallery
             else
                 MessageBox.Show("Something wrong");
         }
+        private System.Windows.Controls.TextBox tb;
+        private void AddText_Click(object sender, RoutedEventArgs e)
+        {
+            //Инициализация контрола tb типа TextBox
+            tb = new System.Windows.Controls.TextBox
+            {
+                    Width = 100,
+                    Height = 50,
+                BorderThickness = new Thickness(0),
+                BorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0)),
+                Margin = new Thickness(0, 0, 0, 0),
+                
+                };
+                //Добавление контрола tb
+                this.inkCanvas1.Children.Add(tb);
+                //Переключение фокуса на элемент, чтоб можно было сразу ввести текст с клавиатуры
+                tb.Focus();
+
+
         }
+        private void IncreaseText_Click(object sender, RoutedEventArgs e)
+        {
+            tb.FontSize++;
+            tb.FontSize++;
+        }
+
+        private void ReduceText_Click(object sender, RoutedEventArgs e)
+        {
+            tb.FontSize--;
+            tb.FontSize--;
+        }
+    }
     }
    
