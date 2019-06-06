@@ -32,9 +32,6 @@
         </Label>
         <CheckBox x:Name="cb_Select" Content="To select" Margin="0,0,130,64" VerticalAlignment="Bottom" FontFamily="Segoe UI Black" Grid.Column="1" Checked="cb_Select_checked" Unchecked="Cb_Select_Unchecked" Height="15" HorizontalAlignment="Right" Width="84"/>
         <Button x:Name="buttonAdd" Content="Add Image" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,22,74" VerticalAlignment="Bottom" Width="75" Click="ButtonAdd_Click" Height="20"/>
-        <Button x:Name="AddText" Content="Add text" HorizontalAlignment="Left" Margin="665,176,0,0" VerticalAlignment="Top" Width="87" Click="AddText_Click"/>
-        <Button x:Name="ReduceText" Content="To reduce text" HorizontalAlignment="Left" Margin="665,258,0,0" VerticalAlignment="Top" Width="87" Click="ReduceText_Click"/>
-        <Button x:Name="IncreaseText" Content="To increase text" HorizontalAlignment="Left" Margin="665,217,0,0" VerticalAlignment="Top" Width="87" Click="IncreaseText_Click"/>
 
     </Grid>
 </Window>
