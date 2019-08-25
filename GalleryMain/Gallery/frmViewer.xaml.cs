@@ -27,6 +27,8 @@ namespace Gallery
         private DispatcherTimer timer = new DispatcherTimer();
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            if (SelectedPhoto != null)
+                return;
             if (!needAnimation)
             {
                 return;
@@ -38,6 +40,7 @@ namespace Gallery
              else timer.Tick += (s, ev) => buttonPrevious.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             timer.Interval = new TimeSpan(0, 0, interval);
             timer.Start();
+           
         }
 
         public void Add(List<Image> images)
@@ -46,12 +49,15 @@ namespace Gallery
         }
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
+            if(SelectedPhoto!=null)
             ViewedPhotoForSlideShow.Source = SelectedPhoto.Source;
         }
 
         private void Button_Next_Click(object sender, RoutedEventArgs e)
         {
-            var counterPhoto = Images.IndexOf(SelectedPhoto);
+            if (SelectedPhoto == null)
+                return;
+                var counterPhoto = Images.IndexOf(SelectedPhoto);
             counterPhoto++;
             if (counterPhoto == Images.Count)
             {
